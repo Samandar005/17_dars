@@ -1,0 +1,12 @@
+<header>
+    <nav>
+        <div class="logo">Maktab CRM</div>
+        <ul>
+            <li><a href="{% url 'home' %}"><i class="fas fa-home"></i> Bosh sahifa</a></li>
+            <li><a href="{% url 'students:student_list' %}"><i class="fas fa-user-graduate"></i> O'quvchilar</a></li>
+            <li><a href="{% url 'teachers:teacher_list' %}"><i class="fas fa-chalkboard-teacher"></i> O'qituvchilar</a></li>
+            <li><a href="{% url 'groups:group_list' %}"><i class="fas fa-users"></i> Guruhlar</a></li>
+            <li><a href="{% url 'subjects:subject_list' %}"><i class="fas fa-book"></i> Fanlar</a></li>
+        </ul>
+    </nav>
+</header>

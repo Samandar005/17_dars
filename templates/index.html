@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+
+{% block title %} Maktab CRM - Bosh sahifa  {% endblock %}
+
+
+{% block content %}
+<h1>Maktab CRM Boshqaruv Paneli</h1>
+<div class="dashboard-grid">
+    <div class="card">
+        <h2>O'quvchilar</h2>
+        <p>Jami: <span id="studentCount">{{ students_count }}</span></p>
+        <a href="{% url 'students:student_list' %}" class="btn">Batafsil</a>
+    </div>
+    <div class="card">
+        <h2>O'qituvchilar</h2>
+        <p>Jami: <span id="teacherCount">{{ teachers_count }}</span></p>
+        <a href="{% url 'teachers:teacher_list' %}" class="btn">Batafsil</a>
+    </div>
+    <div class="card">
+        <h2>Guruhlar</h2>
+        <p>Jami: <span id="groupCount">{{ groups_count }}</span></p>
+        <a href="{% url 'groups:group_list' %}" class="btn">Batafsil</a>
+    </div>
+    <div class="card">
+        <h2>Fanlar</h2>
+        <p>Jami: <span id="subjectCount">{{ subjects_count }}</span></p>
+        <a href="{% url 'subjects:subject_list' %}" class="btn">Batafsil</a>
+    </div>
+</div>
+{% endblock %}
+

@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+
+
+{% block title %}  Maktab CRM - O'qituvchilar ro'yxati {% endblock %}
+
+
+{% block content %}
+<h1>O'qituvchilar ro'yxati</h1>
+<div class="actions">
+    <a href="{% url 'teachers:teacher_create' %}" class="btn"><i class="fas fa-plus"></i> Yangi o'qituvchi qo'shish</a>
+    <input type="text" id="searchStudent" placeholder="O'qituvchi qidirish" class="search-input">
+</div>
+    <table id="teachersTable">
+    {% if teachers %}
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Ism</th>
+            <th>Familiya</th>
+            <th>Fan</th>
+            <th>Amallar</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for teacher in teachers %}
+            <tr>
+                <td>{{ teacher.id }}</td>
+                <td>{{ teacher.first_name }}</td>
+                <td>{{ teacher.last_name }}</td>
+                <td>{{ teacher.subject }}</td>
+                <td>
+                    <a href="{{ teacher.get_detail_url }}" class="btn btn-sm"><i class="fas fa-eye"></i> Ko'rish</a>
+                    <a href="{{ teacher.get_update_url }}" class="btn btn-sm"><i class="fas fa-edit"></i> Tahrirlash</a>
+                    <a href="{{ teacher.get_delete_url }}" class="btn btn-sm btn-danger"><i class="fas fa-trash"></i> O'chirish</a>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    {% else %}
+        <thead>
+            <tr>
+                <th>No Teachers!</th>
+            </tr>
+        </thead>
+    {% endif %}
+    </table>
+<div class="pagination">
+    <a href="#" class="btn btn-secondary"><i class="fas fa-chevron-left"></i> Oldingi</a>
+    <span>1</span>
+    <a href="#" class="btn btn-secondary">Keyingi <i class="fas fa-chevron-right"></i></a>
+</div>
+{% endblock %}
+

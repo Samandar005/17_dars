@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+
+{% block title %}  Maktab CRM - O'quvchi ma'lumotlari {% endblock %}
+
+
+{% block content %}
+<h1>O'quvchi ma'lumotlari</h1>
+        <div class="student-details">
+            <div class="student-info">
+                <!-- Static content for a student's details -->
+                <img src="{{ student.images.url }}" alt="O'quvchi rasmi" style="width: 350px; height: 200px" id="studentImage" class="student-image">
+                <h2 id="studentName">{{ student.first_name }} {{ student.last_name }}</h2>
+                <p>ID: <span id="studentId">{{ student.id }}</span></p>
+                <p>Guruh: <span id="studentGroup">{{ student.group }}</span></p>
+                <p>Tug'ilgan sana: <span id="studentBirthDate">{{ student.birth_date|date:"Y.m.d" }}</span></p>
+                <p>Telefon: <span id="studentPhone">{{ student.phone_number }}</span></p>
+                <p>Manzil: <span id="studentAddress">{{ student.address }}</span></p>
+            </div>
+        </div>
+        <div class="actions">
+            <a href="{{ student.get_update_url }}" class="btn"><i class="fas fa-edit"></i> Tahrirlash</a>
+            <a href="{% url 'students:student_list' %}" class="btn btn-secondary"><i class="fas fa-times"></i> Listga qaytish</a>
+            <a href="{{ student.get_delete_url }}" id="deleteStudent" class="btn btn-danger"><i class="fas fa-trash"></i> O'chirish</a>
+        </div>
+{% endblock %}
+

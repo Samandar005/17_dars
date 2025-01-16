@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+
+
+{% block title %}  Maktab CRM - Guruh ma'lumotlari {% endblock %}
+
+
+{% block content %}
+<h1>Guruh ma'lumotlari</h1>
+        <div class="group-details">
+            <div class="group-info">
+                <h2>{{ group.group_name }}</h2>
+                <p>ID: {{ group.id }}</p>
+                <p>O'quvchilar soni: {{ group.students.count }}</p>
+                <p>Sinf rahbari: {{ group.class_leader }}</p>
+            </div>
+            <div class="group-students">
+                <h3>O'quvchilar ro'yxati</h3>
+                {% if group.students.all %}
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Ism</th>
+                                <th>Familiya</th>
+                                <th>Amallar</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for student in group.students.all %}
+                                <tr>
+                                <td>{{ student.id }}</td>
+                                <td>{{ student.first_name }}</td>
+                                <td>{{ student.last_name }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                {% else %}
+                <br> <h3>No Students!</h3>
+                {% endif %}
+            </div>
+        </div>
+        <div class="actions">
+            <a href="{{ group.get_update_url }}" class="btn"><i class="fas fa-edit"></i> Tahrirlash</a>
+            <a href="{% url 'groups:group_list' %}" class="btn btn-secondary"><i class="fas fa-times"></i> Bekor qilish</a>
+            <a href="" class="btn btn-danger"><i class="fas fa-trash"></i> O'chirish</a>
+        </div>
+{% endblock %}
+

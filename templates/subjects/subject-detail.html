@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+
+
+{% block title %} Maktab CRM - Fan ma'lumotlari  {% endblock %}
+
+
+{% block content %}
+ <h1>Fan ma'lumotlari</h1>
+        <div class="subject-details">
+            <div class="subject-info">
+                <h2>{{ subject.name }}</h2>
+                <p>ID: {{ subject.id }}</p>
+                <p>O'qituvchilar soni: {{ subject.teachers.count }}</p>
+            </div>
+            <div class="subject-teachers">
+                <h3>O'qituvchilar ro'yxati</h3>
+                {% if subject.teachers.all %}
+                    <table id="teachersTable">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Ism</th>
+                                <th>Familiya</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for teacher in subject.teachers.all %}
+                                <tr>
+                                    <td>{{ teacher.id }}</td>
+                                    <td>{{ teacher.first_name }}</td>
+                                    <td>{{ teacher.last_name }}</td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                {% else %}
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>No Teachers!</th>
+                            </tr>
+                        </thead>
+                    </table>
+                {% endif %}
+            </div>
+        </div>
+        <div class="actions">
+            <a href="{{ subject.get_update_url }}" class="btn"><i class="fas fa-edit"></i> Tahrirlash</a>
+            <a href="{% url 'subjects:subject_list' %}" class="btn btn-secondary"><i class="fas fa-times"></i> Listga qaytish</a>
+            <a href="{{ subject.get_delete_url }}" class="btn btn-danger"><i class="fas fa-trash"></i> O'chirish</a>
+        </div>
+{% endblock %}
+

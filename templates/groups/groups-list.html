@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+
+
+{% block title %} Maktab CRM - Guruhlar ro'yxati  {% endblock %}
+
+
+{% block content %}
+ <h1>Guruhlar ro'yxati</h1>
+        <div class="actions">
+            <a href="{% url 'groups:create' %}" class="btn"><i class="fas fa-plus"></i> Yangi guruh qo'shish</a>
+            <input type="text" id="searchGroup" placeholder="Guruh qidirish" class="search-input">
+        </div>
+        <table id="groupsTable">
+        {% if groups %}
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Guruh nomi</th>
+                    <th>O'quvchilar soni</th>
+                    <th>Sinf rahbari</th>
+                    <th>Amallar</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for group in groups %}
+                    <tr>
+                        <td>{{ group.id }}</td>
+                        <td>{{ group.group_name }}</td>
+                        <td>{{ group.students.count }}</td>
+                        <td>{{ group.class_leader.first_name }} {{ group.class_leader.last_name }}</td>
+                        <td>
+                            <a href="{{ group.get_detail_url }}" class="btn btn-sm"><i class="fas fa-eye"></i> Ko'rish</a>
+                            <a href="{{ group.get_update_url }}" class="btn btn-sm"><i class="fas fa-edit"></i> Tahrirlash</a>
+                            <a href="{{ group.get_delete_url }}" class="btn btn-sm btn-danger"><i class="fas fa-trash"></i> O'chirish</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        {% else %}
+            <thead>
+                <tr>
+                    <th>No Groups!</th>
+                </tr>
+            </thead>
+        {% endif %}
+        </table>
+
+        <div class="pagination">
+            <a href="#" class="btn btn-secondary"><i class="fas fa-chevron-left"></i> Oldingi</a>
+            <span>1</span>
+            <a href="#" class="btn btn-secondary">Keyingi <i class="fas fa-chevron-right"></i></a>
+        </div>
+{% endblock %}
+

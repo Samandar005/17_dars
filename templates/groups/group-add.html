@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+
+
+{% block title %} {% if groups %} Maktab CRM - Guruhni Tahrirlash {% else %} Maktab CRM - Guruh yaratish {% endif %}{% endblock %}
+
+
+{% block content %}
+<h1>{% if group %} Guruhni tahrirlash {% else %}Guruh yaratish{% endif %}</h1>
+<form id="createGroupForm" method="post">
+    {% csrf_token %}
+    <div class="form-group">
+        <label for="groupName">Guruh nomi:</label>
+        <input type="text" id="groupName" name="group_name" value="{{ group.group_name }}"  placeholder="Guruh nomini kiriting" required>
+    </div>
+
+
+    <div class="form-group">
+        <label for="subject">O'qituvchi:</label>
+        <select id="subject" name="class_leader">
+            <option value="" {% if not selected_teacher %}selected{% endif %}>O'qituvchini Tanlang</option>
+            {% for teacher in teachers %}
+            <option value="{{ teacher.id }}" {% if teacher.id == selected_teacher %}selected{% endif %}>
+                {{ teacher.first_name }} {{ teacher.last_name }}
+            </option>
+            {% endfor %}
+        </select>
+    </div>
+
+
+    <div class="form-group">
+        <label for="students">O'quvchilar:</label>
+        <select id="students" name="students" multiple >
+            {% for student in students %}
+                <option value="{{ student.id }}"
+                    {% if group and student in group.students.all %}selected{% endif %}>
+                    {{ student.first_name }} {{ student.last_name }}
+                </option>
+            {% endfor %}
+        </select>
+    </div>
+
+    <div class="actions">
+        {% if group %}
+            <button type="submit" class="btn"><i class="fas fa-save"></i> Update</button>
+            <a href="{{ group.get_detail_url }}" class="btn btn-secondary"><i class="fas fa-times"></i> Bekor qilish</a>
+        {% else %}
+            <button type="submit" class="btn"><i class="fas fa-save"></i> Saqlash</button>
+            <a href="{% url 'groups:group_list' %}" class="btn btn-secondary"><i class="fas fa-times"></i> Bekor qilish</a>
+        {% endif %}
+    </div>
+</form>
+{% endblock %}
+

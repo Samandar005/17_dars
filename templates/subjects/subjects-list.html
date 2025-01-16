@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+
+
+{% block title %}  Maktab CRM - Fanlar ro'yxati {% endblock %}
+
+
+{% block content %}
+  <h1>Fanlar ro'yxati</h1>
+        <div class="actions">
+            <a href="{% url 'subjects:subject_create' %}" class="btn"><i class="fas fa-plus"></i> Yangi fan qo'shish</a>
+            <input type="text" id="searchSubject" placeholder="Fan qidirish" class="search-input">
+        </div>
+        <table id="subjectsTable">
+        {% if subjects %}
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Fan nomi</th>
+                    <th>O'qituvchilar soni</th>
+                    <th>Amallar</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for subject in subjects %}
+                    <tr>
+                        <td>{{ subject.id }}</td>
+                        <td>{{ subject.name }}</td>
+                        <td>{{ subject.teachers.count }}</td>
+                        <td>
+                            <a href="{{ subject.get_detail_url }}" class="btn btn-sm"><i class="fas fa-eye"></i> Ko'rish</a>
+                            <a href="{{ subject.get_update_url }}" class="btn btn-sm"><i class="fas fa-edit"></i> Tahrirlash</a>
+                            <a href="{{ subject.get_delete_url }}" class="btn btn-sm btn-danger"><i class="fas fa-trash"></i> O'chirish</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        {% else %}
+            <thead>
+                <tr>
+                    <th style="color:white" >No Subjects!</th>
+                </tr>
+            </thead>
+        {% endif %}
+        </table>
+        <div class="pagination">
+            <a href="#" class="btn btn-secondary"><i class="fas fa-chevron-left"></i> Oldingi</a>
+            <span>1</span>
+            <a href="#" class="btn btn-secondary">Keyingi <i class="fas fa-chevron-right"></i></a>
+        </div>
+{% endblock %}
+
